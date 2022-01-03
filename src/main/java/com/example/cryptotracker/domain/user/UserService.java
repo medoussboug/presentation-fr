@@ -23,4 +23,17 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() ->
                         new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
     }
+
+    public String signUpUser(User user) {
+       boolean isUserExists = userRepository.findByEmail(user.getEmail()).isPresent();
+       if (isUserExists) {
+           throw new IllegalStateException("Email already taken");
+       }
+       String encodedPassword = passwordEncoder.encode(user.getPassword());
+       user.setPassword(encodedPassword);
+       userRepository.save(user);
+       return "signed";
+    }
+
+
 }
