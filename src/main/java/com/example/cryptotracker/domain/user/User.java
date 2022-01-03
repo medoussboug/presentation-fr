@@ -1,6 +1,7 @@
 package com.example.cryptotracker.domain.user;
 
 
+import com.example.cryptotracker.domain.FavoriteCryptocurrency;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -39,7 +41,12 @@ public class User implements UserDetails {
     private UserRole userRole;
     private Boolean locked;
     private Boolean enabled;
-
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(
+            name = "user_id",
+            referencedColumnName = "id"
+    )
+    private Set<FavoriteCryptocurrency> usersFavoriteCryptocurrencies;
 
     public User(String name, String username, String email, String phoneNumber, String password, UserRole userRole) {
         this.name = name;

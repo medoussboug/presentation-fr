@@ -2,9 +2,9 @@ package com.example.cryptotracker.domain;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
+
 @Builder
 @Entity
 @Getter
@@ -63,4 +63,10 @@ public class Cryptocurrency {
     private String atlDate;
     @Column(name = "last_updated")
     private String lastUpdated;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(
+            name = "crypto_id",
+            referencedColumnName = "id"
+    )
+    private Set<FavoriteCryptocurrency> usersFavoriteCryptocurrencies;
 }
