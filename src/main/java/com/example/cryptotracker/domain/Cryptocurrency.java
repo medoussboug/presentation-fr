@@ -11,6 +11,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Cryptocurrency {
     @Id
     @Column(name = "id")
@@ -63,7 +64,7 @@ public class Cryptocurrency {
     private String atlDate;
     @Column(name = "last_updated")
     private String lastUpdated;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.REFRESH)
     @JoinColumn(
             name = "crypto_id",
             referencedColumnName = "id"

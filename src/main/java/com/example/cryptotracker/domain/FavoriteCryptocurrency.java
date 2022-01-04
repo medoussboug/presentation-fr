@@ -1,13 +1,19 @@
 package com.example.cryptotracker.domain;
 
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
+
 @Table(name = "Favorite_Cryptocurrency")
-@Data
+@Builder
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 public class FavoriteCryptocurrency {
     @SequenceGenerator(
             name = "favorite_cryptocurrency_sequence",
