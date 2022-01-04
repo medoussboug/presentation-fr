@@ -9,7 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
-
 @Service
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
@@ -17,22 +16,27 @@ public class UserService implements UserDetailsService {
     @Autowired
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email)
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
                 .orElseThrow(() ->
-                        new UsernameNotFoundException(String.format(USER_NOT_FOUND, email)));
+                        new UsernameNotFoundException(String.format(USER_NOT_FOUND, username)));
     }
 
     public String signUpUser(User user) {
-       boolean isUserExists = userRepository.findByEmail(user.getEmail()).isPresent();
-       if (isUserExists) {
-           throw new IllegalStateException("Email already taken");
-       }
-       String encodedPassword = passwordEncoder.encode(user.getPassword());
-       user.setPassword(encodedPassword);
-       userRepository.save(user);
-       return "signed";
+        boolean isUserEmailExists = userRepository.findByEmail(user.getEmail()).isPresent();
+        boolean isUserUsernameExists = userRepository.findByUsername(user.getUsername()).isPresent();
+        if (isUserEmailExists) {
+            throw new IllegalStateException("Email already exists");
+        }
+        if (isUserUsernameExists) {
+            throw new IllegalStateException("username already exists");
+        }
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        userRepository.save(user);
+        return "signed";
     }
 
 

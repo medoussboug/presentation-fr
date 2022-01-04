@@ -56,7 +56,7 @@ public class User implements UserDetails {
         this.password = password;
         this.userRole = userRole;
         this.locked = false;
-        this.enabled = false;
+        this.enabled = true; // temporary TODO return false
     }
 
     @Override
