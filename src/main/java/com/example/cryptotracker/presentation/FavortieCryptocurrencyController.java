@@ -27,4 +27,16 @@ public class FavortieCryptocurrencyController {
         favoriteCryptocurrencyService.addFavoriteCryptocurrency(favoriteCryptocrurrencyDTO);
         return "added";
     }
+
+    @PutMapping
+    public String updateData(@RequestBody FavoriteCryptocrurrencyDTO favoriteCryptocrurrencyDTO) {
+        favoriteCryptocurrencyService.updateFavoriteCryptocurrency(favoriteCryptocrurrencyDTO);
+        return "updated";
+    }
+
+    @DeleteMapping("{cryptoId}")
+    public String deleteData(@PathVariable String cryptoId) {
+        favoriteCryptocurrencyService.deleteFavoriteCryptocurrency(cryptoId);
+        return "deleted";
+    }
 }
