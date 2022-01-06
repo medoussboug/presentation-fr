@@ -27,6 +27,7 @@ public class FavoriteCryptocurrencyService {
     private final CryptocurrencyRepository cryptocurrencyRepository;
 
     public void addFavoriteCryptocurrency(FavoriteCryptocrurrencyDTO favoriteCryptocrurrencyDTO) {
+
         try {
             favoriteCryptocurrencyRepository.findByCryptoName(favoriteCryptocrurrencyDTO.cryptoId).isPresent();
         } catch (Exception e) {
@@ -43,6 +44,9 @@ public class FavoriteCryptocurrencyService {
             Optional<Cryptocurrency> cryptocurrency = cryptocurrencyRepository.findById(favoriteCryptocrurrencyDTO.cryptoId);
             if (cryptocurrency.isEmpty()) {
                 throw new IllegalStateException("cryptocurrency not found");
+            }
+            if (cryptocurrency.get().getCurrentPrice() > favoriteCryptocrurrencyDTO.desiredSellingPrice || cryptocurrency.get().getCurrentPrice() < favoriteCryptocrurrencyDTO.desiredBuyingPrice) {
+                throw new IllegalArgumentException("fixe desired prices");
             }
             cryptocurrency.get().getUsersFavoriteCryptocurrencies().add(favoriteCryptocurrency);
             favoriteCryptocurrency.setCryptocurrency(cryptocurrency.get());
@@ -65,6 +69,9 @@ public class FavoriteCryptocurrencyService {
         Optional<FavoriteCryptocurrency> favoriteCryptocurrency = favoriteCryptocurrencyRepository.findByUserAndCryptoName(user.get(), favoriteCryptocrurrencyDTO.cryptoId);
         if (favoriteCryptocurrency.isEmpty()) {
             throw new IllegalStateException("not found");
+        }
+        if (favoriteCryptocurrency.get().getCryptoPrice() > favoriteCryptocrurrencyDTO.desiredSellingPrice || favoriteCryptocurrency.get().getCryptoPrice() < favoriteCryptocrurrencyDTO.desiredBuyingPrice) {
+            throw new IllegalArgumentException("fixe desired prices");
         }
         favoriteCryptocurrency.get().setDesiredSellingPrice(favoriteCryptocrurrencyDTO.desiredSellingPrice);
         favoriteCryptocurrency.get().setDesiredBuyingPrice(favoriteCryptocrurrencyDTO.desiredBuyingPrice);
