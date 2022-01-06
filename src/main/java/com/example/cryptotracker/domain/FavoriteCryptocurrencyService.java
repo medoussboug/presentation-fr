@@ -50,6 +50,7 @@ public class FavoriteCryptocurrencyService {
             }
             cryptocurrency.get().getUsersFavoriteCryptocurrencies().add(favoriteCryptocurrency);
             favoriteCryptocurrency.setCryptocurrency(cryptocurrency.get());
+            favoriteCryptocurrency.setNotified(false);
             favoriteCryptocurrencyRepository.save(favoriteCryptocurrency);
             userRepository.save(user.get());
             cryptocurrencyRepository.save(cryptocurrency.get());
@@ -75,6 +76,7 @@ public class FavoriteCryptocurrencyService {
         }
         favoriteCryptocurrency.get().setDesiredSellingPrice(favoriteCryptocrurrencyDTO.desiredSellingPrice);
         favoriteCryptocurrency.get().setDesiredBuyingPrice(favoriteCryptocrurrencyDTO.desiredBuyingPrice);
+        favoriteCryptocurrency.get().setNotified(false);
         favoriteCryptocurrencyRepository.save(favoriteCryptocurrency.get());
     }
 

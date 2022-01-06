@@ -36,6 +36,7 @@ public class FavoriteCryptocurrency {
     private Double desiredSellingPrice;
     @Column(name = "desired_buying_price")
     private Double desiredBuyingPrice;
+    private Boolean notified;
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
@@ -44,6 +45,7 @@ public class FavoriteCryptocurrency {
     @JoinColumn(name = "crypto_id")
     @JsonIgnore
     private Cryptocurrency cryptocurrency;
+
 
     @Override
     public String toString() {

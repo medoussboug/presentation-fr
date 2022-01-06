@@ -35,14 +35,15 @@ public class CryptocurrencyService {
                 Set<FavoriteCryptocurrency> favoriteCryptocurrencies = cryptocurrency.get().getUsersFavoriteCryptocurrencies();
                 if (favoriteCryptocurrencies.size() > 0) {
                     for (FavoriteCryptocurrency favoriteCryptocurrency : favoriteCryptocurrencies) {
-                        if (loadedCryptocurrency.currentPrice <= favoriteCryptocurrency.getDesiredBuyingPrice() || loadedCryptocurrency.currentPrice >= favoriteCryptocurrency.getDesiredSellingPrice()) {
+                        if ((loadedCryptocurrency.currentPrice <= favoriteCryptocurrency.getDesiredBuyingPrice() || loadedCryptocurrency.currentPrice >= favoriteCryptocurrency.getDesiredSellingPrice()) && !favoriteCryptocurrency.getNotified()) {
                             smsSender.sendSms(
                                     new SmsRequest(
                                             favoriteCryptocurrency.getUser()
                                                     .getPhoneNumber(),
-                                            String.format("3lach nta zaml", favoriteCryptocurrency.getCryptoName())
+                                            String.format("Quick Quick!!!!!\n the price of %s has gone to your desired price", favoriteCryptocurrency.getCryptoName())
                                     )
                             );
+                            favoriteCryptocurrency.setNotified(true);
                         }
                         favoriteCryptocurrency.setCryptoPrice(loadedCryptocurrency.currentPrice);
                         favoriteCryptocurrencyRepository.save(favoriteCryptocurrency);
