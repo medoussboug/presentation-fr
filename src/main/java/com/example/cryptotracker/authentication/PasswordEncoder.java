@@ -1,4 +1,4 @@
-package com.example.cryptotracker.domain.security;
+package com.example.cryptotracker.authentication;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

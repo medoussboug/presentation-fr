@@ -1,11 +1,9 @@
 package com.example.cryptotracker.domain;
 
-import com.example.cryptotracker.domain.user.User;
-import com.example.cryptotracker.domain.user.UserRepository;
+import com.example.cryptotracker.authentication.AuthenticationFacade;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import java.util.Optional;
 import java.util.Set;

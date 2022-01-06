@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -39,4 +38,11 @@ public class FavortieCryptocurrencyController {
         favoriteCryptocurrencyService.deleteFavoriteCryptocurrency(cryptoId);
         return "deleted";
     }
+
+    // TODO Implement phone sms messaging service with twilio
+    // TODO Implement the scheduled methodes
+    // TODO Implement email verfication
+    // TODO Refactor code to handle response entities
+    // TODO Right unit tests
+    // TODO Clean up code
 }

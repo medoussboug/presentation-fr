@@ -1,4 +1,4 @@
-package com.example.cryptotracker.domain.user;
+package com.example.cryptotracker.domain;
 
 import lombok.AllArgsConstructor;
 

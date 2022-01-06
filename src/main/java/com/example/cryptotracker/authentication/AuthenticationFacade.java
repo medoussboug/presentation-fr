@@ -1,4 +1,4 @@
-package com.example.cryptotracker.domain;
+package com.example.cryptotracker.authentication;
 
 import org.springframework.security.core.Authentication;
 

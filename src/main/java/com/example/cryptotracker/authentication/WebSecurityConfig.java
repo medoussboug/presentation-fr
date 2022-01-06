@@ -1,4 +1,4 @@
-package com.example.cryptotracker.domain.security.config;
+package com.example.cryptotracker.authentication;
 
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;

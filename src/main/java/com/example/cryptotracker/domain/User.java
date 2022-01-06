@@ -1,7 +1,6 @@
-package com.example.cryptotracker.domain.user;
+package com.example.cryptotracker.domain;
 
 
-import com.example.cryptotracker.domain.FavoriteCryptocurrency;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

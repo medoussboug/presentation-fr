@@ -1,4 +1,4 @@
-package com.example.cryptotracker.domain.registration;
+package com.example.cryptotracker.authentication;
 
 import org.springframework.stereotype.Service;
 

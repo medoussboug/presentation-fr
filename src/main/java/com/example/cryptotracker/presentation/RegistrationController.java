@@ -1,14 +1,13 @@
 package com.example.cryptotracker.presentation;
 
-import com.example.cryptotracker.domain.AuthenticationFacade;
-import com.example.cryptotracker.domain.registration.RegistrationService;
-import com.example.cryptotracker.domain.user.User;
-import com.example.cryptotracker.domain.user.UserDTO;
+import com.example.cryptotracker.authentication.RegistrationService;
+import com.example.cryptotracker.domain.UserDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/registration")
