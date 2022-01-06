@@ -1,7 +1,10 @@
 package com.example.cryptotracker.domain;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +17,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@EqualsAndHashCode
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class User implements UserDetails {
@@ -41,11 +44,7 @@ public class User implements UserDetails {
     private UserRole userRole;
     private Boolean locked;
     private Boolean enabled;
-    @OneToMany(cascade = CascadeType.REFRESH)
-    @JoinColumn(
-            name = "user_id",
-            referencedColumnName = "id"
-    )
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
     private Set<FavoriteCryptocurrency> usersFavoriteCryptocurrencies;
 
     public User(String name, String username, String email, String phoneNumber, String password, UserRole userRole) {

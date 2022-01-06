@@ -20,7 +20,6 @@ public class CryptocurrencyService {
 
     public void loadData() {
         List<CryptocurrencyDTO> loadedCryptocurrencies = coinGeckoClient.getCryptocurrencies();
-        System.out.println(loadedCryptocurrencies.size());
         for (CryptocurrencyDTO loadedCryptocurrency : loadedCryptocurrencies) {
             cryptocurrencyRepository.save(cryptocurrencyMapper.mapToEntity(loadedCryptocurrency));
         }

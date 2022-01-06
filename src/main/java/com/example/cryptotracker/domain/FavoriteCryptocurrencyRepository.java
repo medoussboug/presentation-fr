@@ -8,4 +8,5 @@ import java.util.Optional;
 @Repository
 public interface FavoriteCryptocurrencyRepository extends JpaRepository<FavoriteCryptocurrency, Long> {
     Optional<FavoriteCryptocurrency> findByCryptoName(String cryptoName);
+    Optional<FavoriteCryptocurrency> findByUserAndCryptoName(User user, String cyptoName);
 }

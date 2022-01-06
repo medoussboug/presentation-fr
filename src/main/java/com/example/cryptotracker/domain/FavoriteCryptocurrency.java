@@ -1,6 +1,7 @@
 package com.example.cryptotracker.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+
 public class FavoriteCryptocurrency {
     @SequenceGenerator(
             name = "favorite_cryptocurrency_sequence",
@@ -35,5 +36,25 @@ public class FavoriteCryptocurrency {
     private Double desiredSellingPrice;
     @Column(name = "desired_buying_price")
     private Double desiredBuyingPrice;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
+    @ManyToOne
+    @JoinColumn(name = "crypto_id")
+    @JsonIgnore
+    private Cryptocurrency cryptocurrency;
 
+    @Override
+    public String toString() {
+        return "\nFavoriteCryptocurrency{" +
+                "\nfavoriteCryptoId=" + favoriteCryptoId +
+                "\n, cryptoName='" + cryptoName + '\'' +
+                "\n, cryptoPrice=" + cryptoPrice +
+                "\n, desiredSellingPrice=" + desiredSellingPrice +
+                "\n, desiredBuyingPrice=" + desiredBuyingPrice +
+                "\n, user=" + user +
+                "\n, cryptocurrency=" + cryptocurrency +
+                '}';
+    }
 }

@@ -36,18 +36,20 @@ public class FavoriteCryptocurrencyService {
         if (favoriteCryptocurrency != null) {
             Optional<User> user = userRepository.findByUsername(authenticationFacade.getAuthentication().getName());
             if (user.isEmpty()) {
-                return;
+                throw new IllegalStateException("user not found");
             }
             user.get().getUsersFavoriteCryptocurrencies().add(favoriteCryptocurrency);
+            favoriteCryptocurrency.setUser(user.get());
             Optional<Cryptocurrency> cryptocurrency = cryptocurrencyRepository.findById(favoriteCryptocrurrencyDTO.cryptoId);
             if (cryptocurrency.isEmpty()) {
-                return;
+                throw new IllegalStateException("cryptocurrency not found");
             }
             cryptocurrency.get().getUsersFavoriteCryptocurrencies().add(favoriteCryptocurrency);
+            favoriteCryptocurrency.setCryptocurrency(cryptocurrency.get());
             favoriteCryptocurrencyRepository.save(favoriteCryptocurrency);
             userRepository.save(user.get());
             cryptocurrencyRepository.save(cryptocurrency.get());
-        }
+            }
     }
 
     public Set<FavoriteCryptocurrency> listFavoriteCryptocurrencies() {
@@ -58,36 +60,27 @@ public class FavoriteCryptocurrencyService {
     public void updateFavoriteCryptocurrency(FavoriteCryptocrurrencyDTO favoriteCryptocrurrencyDTO) {
         Optional<User> user = userRepository.findByUsername(authenticationFacade.getAuthentication().getName());
         if (user.isEmpty()) {
-            return;
+            throw new IllegalStateException("user not found");
         }
-        for (FavoriteCryptocurrency usersFavoriteCryptocurrency : user.get().getUsersFavoriteCryptocurrencies()) {
-            if (usersFavoriteCryptocurrency.getCryptoName().equals(favoriteCryptocrurrencyDTO.cryptoId)) {
-                usersFavoriteCryptocurrency.setDesiredBuyingPrice(favoriteCryptocrurrencyDTO.desiredBuyingPrice);
-                usersFavoriteCryptocurrency.setDesiredSellingPrice(favoriteCryptocrurrencyDTO.desiredSellingPrice);
-                userRepository.save(user.get());
-                return;
-            }
+        Optional<FavoriteCryptocurrency> favoriteCryptocurrency = favoriteCryptocurrencyRepository.findByUserAndCryptoName(user.get(), favoriteCryptocrurrencyDTO.cryptoId);
+        if (favoriteCryptocurrency.isEmpty()) {
+            throw new IllegalStateException("not found");
         }
-        throw new IllegalStateException("not found");
+        favoriteCryptocurrency.get().setDesiredSellingPrice(favoriteCryptocrurrencyDTO.desiredSellingPrice);
+        favoriteCryptocurrency.get().setDesiredBuyingPrice(favoriteCryptocrurrencyDTO.desiredBuyingPrice);
+        favoriteCryptocurrencyRepository.save(favoriteCryptocurrency.get());
     }
 
     public void deleteFavoriteCryptocurrency(String cryptoId) {
+
         Optional<User> user = userRepository.findByUsername(authenticationFacade.getAuthentication().getName());
         if (user.isEmpty()) {
-            return;
+            throw new IllegalStateException("user not found");
         }
-        FavoriteCryptocurrency deletedFavoriteCryptocurrency = null;
-        for (FavoriteCryptocurrency usersFavoriteCryptocurrency : user.get().getUsersFavoriteCryptocurrencies()) {
-            if (usersFavoriteCryptocurrency.getCryptoName().equals(cryptoId)) {
-                deletedFavoriteCryptocurrency = usersFavoriteCryptocurrency;
-                break;
-            }
+        Optional<FavoriteCryptocurrency> favoriteCryptocurrency = favoriteCryptocurrencyRepository.findByUserAndCryptoName(user.get(), cryptoId);
+        if (favoriteCryptocurrency.isEmpty()) {
+            throw new IllegalStateException("not found");
         }
-        if (deletedFavoriteCryptocurrency != null) {
-            user.get().getUsersFavoriteCryptocurrencies().remove(deletedFavoriteCryptocurrency);
-            userRepository.save(user.get());
-            return;
-        }
-        throw new IllegalStateException("not found");
+        favoriteCryptocurrencyRepository.delete(favoriteCryptocurrency.get());
     }
 }
