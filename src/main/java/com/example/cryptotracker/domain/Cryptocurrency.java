@@ -3,6 +3,7 @@ package com.example.cryptotracker.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Builder
@@ -64,5 +65,5 @@ public class Cryptocurrency {
     @Column(name = "last_updated")
     private String lastUpdated;
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "cryptocurrency")
-    private Set<FavoriteCryptocurrency> usersFavoriteCryptocurrencies;
+    private Set<FavoriteCryptocurrency> usersFavoriteCryptocurrencies = new HashSet<>();
 }
