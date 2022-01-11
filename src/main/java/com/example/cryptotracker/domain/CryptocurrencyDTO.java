@@ -25,16 +25,16 @@ public class CryptocurrencyDTO {
     public final Double currentPrice;
     @SerializedName("market_cap")
     @Expose
-    public final Long marketCap;
+    public final Double marketCap;
     @SerializedName("market_cap_rank")
     @Expose
-    public final Long marketCapRank;
+    public final Double marketCapRank;
     @SerializedName("fully_diluted_valuation")
     @Expose
-    public final Long fullyDilutedValuation;
+    public final Double fullyDilutedValuation;
     @SerializedName("total_volume")
     @Expose
-    public final Long totalVolume;
+    public final Double totalVolume;
     @SerializedName("high_24h")
     @Expose
     public final Double high24h;

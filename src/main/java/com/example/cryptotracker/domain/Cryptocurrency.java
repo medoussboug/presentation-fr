@@ -25,13 +25,13 @@ public class Cryptocurrency {
     @Column(name = "current_price")
     private Double currentPrice;
     @Column(name = "market_cap")
-    private Long marketCap;
+    private Double marketCap;
     @Column(name = "market_cap_rank")
-    private Long marketCapRank;
+    private Double marketCapRank;
     @Column(name = "fully_diluted_valuation")
-    private Long fullyDilutedValuation;
+    private Double fullyDilutedValuation;
     @Column(name = "total_volume")
-    private Long totalVolume;
+    private Double totalVolume;
     @Column(name = "high_24h")
     private Double high24h;
     @Column(name = "low_24h")

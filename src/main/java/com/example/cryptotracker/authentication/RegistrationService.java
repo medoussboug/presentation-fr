@@ -13,12 +13,12 @@ public class RegistrationService {
     @Autowired
     private final UserService userService;
     @Autowired
-    private final EmailValidator emailValidator;
+    private final CredentialsValidator credentialsValidator;
 
     public String register(UserDTO user) {
-        Boolean isValidEmail = emailValidator.test(user.email);
-        if (!isValidEmail) {
-            throw new IllegalStateException("email not valid");
+        Boolean isValidCredentials = credentialsValidator.validate(user);
+        if (!isValidCredentials) {
+            throw new IllegalStateException("Credentials not valid");
         }
         return userService.signUpUser(new User(
                 user.name,
