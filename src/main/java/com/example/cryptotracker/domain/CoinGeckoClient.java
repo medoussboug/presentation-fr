@@ -36,12 +36,12 @@ public class CoinGeckoClient {
         this.httpRequest = httpRequest;
     }
 
-    public List<CryptocurrencyDTO> getCryptocurrencies() {
+    List<CryptocurrencyDTO> getCryptocurrencies() {
         CryptocurrencyDTO[] cryptocurrencyDTOS = gson.fromJson(performRequest(), (Type) CryptocurrencyDTO[].class);
         return List.of(cryptocurrencyDTOS);
     }
 
-    public String performRequest() {
+    private String performRequest() {
         try {
             return httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString()).body();
         } catch (IOException | InterruptedException e) {
