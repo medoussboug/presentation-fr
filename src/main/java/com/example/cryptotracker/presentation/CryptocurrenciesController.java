@@ -23,14 +23,4 @@ public class CryptocurrenciesController {
     public List<Cryptocurrency> listData() {
         return cryptocurrencyService.listData();
     }
-
-    @PostMapping
-    public String loadData() {
-        try {
-            cryptocurrencyService.loadData();
-        } catch (Exception e) {
-            return e.getMessage();
-        }
-        return "loaded";
-    }
 }

@@ -21,14 +21,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/registration")
+                    .antMatchers("/registration", "/api/v*/cryptocurrencies")
                     .permitAll()
-                .anyRequest()
-                .authenticated()
+                .anyRequest().authenticated()
                 .and()
-                .httpBasic() // to ease testing TODO remove
+                .formLogin()
                 .and()
-                .formLogin();
+                .logout().deleteCookies("JSESSIONID")
+                .and()
+                .rememberMe().key("uniqueAndSecret");
     }
 
     @Override
