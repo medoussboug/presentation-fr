@@ -30,7 +30,7 @@ public class CryptocurrencyService {
 
     @Transactional
     public void loadData() {
-        System.out.println("bsmlah");
+
         List<CryptocurrencyDTO> loadedCryptocurrencies = coinGeckoClient.getCryptocurrencies();
         for (CryptocurrencyDTO loadedCryptocurrency : loadedCryptocurrencies) {
             Optional<Cryptocurrency> cryptocurrency = cryptocurrencyRepository.findById(loadedCryptocurrency.id);
@@ -39,13 +39,13 @@ public class CryptocurrencyService {
                 if (favoriteCryptocurrencies != null && favoriteCryptocurrencies.size() > 0) {
                     for (FavoriteCryptocurrency favoriteCryptocurrency : favoriteCryptocurrencies) {
                         if ((loadedCryptocurrency.currentPrice <= favoriteCryptocurrency.getDesiredBuyingPrice() || loadedCryptocurrency.currentPrice >= favoriteCryptocurrency.getDesiredSellingPrice()) && !favoriteCryptocurrency.getNotified()) {
-//                            smsSender.sendSms(
-//                                    new SmsRequest(
-//                                            favoriteCryptocurrency.getUser()
-//                                                    .getPhoneNumber(),
-//                                            String.format("Quick Quick!!!!!\n the price of %s has gone to your desired price", favoriteCryptocurrency.getCryptoName())
-//                                    )
-//                            );
+                            smsSender.sendSms(
+                                    new SmsRequest(
+                                            favoriteCryptocurrency.getUser()
+                                                    .getPhoneNumber(),
+                                            String.format("Quick Quick!!!!!\n the price of %s has gone to your desired price", favoriteCryptocurrency.getCryptoName())
+                                    )
+                            );
                             System.out.println("==============================================SENT===================================================");
                             favoriteCryptocurrency.setNotified(true);
                         }

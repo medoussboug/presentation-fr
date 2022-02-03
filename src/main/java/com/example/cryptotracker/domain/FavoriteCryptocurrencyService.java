@@ -45,9 +45,9 @@ public class FavoriteCryptocurrencyService {
             if (cryptocurrency.isEmpty()) {
                 throw new IllegalStateException("cryptocurrency not found");
             }
-            if (cryptocurrency.get().getCurrentPrice() > favoriteCryptocrurrencyDTO.desiredSellingPrice || cryptocurrency.get().getCurrentPrice() < favoriteCryptocrurrencyDTO.desiredBuyingPrice) {
-                throw new IllegalArgumentException("fixe desired prices");
-            }
+//            if (cryptocurrency.get().getCurrentPrice() > favoriteCryptocrurrencyDTO.desiredSellingPrice || cryptocurrency.get().getCurrentPrice() < favoriteCryptocrurrencyDTO.desiredBuyingPrice) {
+//                throw new IllegalArgumentException("fixe desired prices");
+//            }
             cryptocurrency.get().getUsersFavoriteCryptocurrencies().add(favoriteCryptocurrency);
             favoriteCryptocurrency.setCryptocurrency(cryptocurrency.get());
             favoriteCryptocurrency.setNotified(false);

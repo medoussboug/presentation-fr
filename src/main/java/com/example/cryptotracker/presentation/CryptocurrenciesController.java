@@ -23,4 +23,5 @@ public class CryptocurrenciesController {
     public List<Cryptocurrency> listData() {
         return cryptocurrencyService.listData();
     }
+
 }
