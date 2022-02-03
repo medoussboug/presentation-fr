@@ -25,7 +25,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .httpBasic().and()
                 .formLogin()
                 .and()
                 .logout().deleteCookies("JSESSIONID")

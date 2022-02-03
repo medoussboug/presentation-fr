@@ -20,6 +20,7 @@ public class CryptoTrackerApplication {
     void loadingJob() {
         cryptocurrencyService.loadData();
     }
+
 }
 
 
